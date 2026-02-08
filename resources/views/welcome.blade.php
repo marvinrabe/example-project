@@ -130,7 +130,7 @@
         </header>
 
         <main class="flex-1 flex flex-col items-center justify-center px-6 py-12 gap-12">
-            <!-- Hero Section -->
+            <!-- Master of the Universe section -->
             <div class="text-center animate-slide-up relative">
                 <div class="relative inline-block">
                     <span class="text-6xl md:text-8xl font-bold bg-gradient-to-r from-[#f53003] via-[#f59e03] to-[#f53003] bg-clip-text text-transparent animate-gradient" style="background-size: 200% 200%;">
