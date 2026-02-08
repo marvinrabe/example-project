@@ -11,6 +11,10 @@ Route::get('/clock', function () {
     return view('clock');
 });
 
+Route::get('/duck', function () {
+    return view('duck');
+});
+
 Route::get('/countries', function () {
     return view('countries', ['countries' => Country::orderBy('name')->get()]);
 });
