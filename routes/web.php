@@ -4,7 +4,7 @@ use App\Models\Country;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    abort(500, 'Intentional CI error for issue #11');
+    return view('welcome');
 });
 
 Route::get('/clock', function () {
