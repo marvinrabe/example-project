@@ -30,7 +30,7 @@ jobs:
           cache: 'npm'
 
       - name: Install Node dependencies and build assets
-        run: npm ci && npm run build
+        run: npm install && npm run build
 
       - name: Prepare environment
         run: |
