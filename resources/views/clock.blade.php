@@ -13,11 +13,11 @@
         <!-- Styles / Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] dark:text-[#EDEDEC] flex items-center justify-center min-h-screen flex-col">
-        <main class="flex flex-col items-center gap-6">
+    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] dark:text-[#EDEDEC] min-h-screen flex flex-col">
+        @include('partials.nav')
+        <main class="flex-1 flex flex-col items-center justify-center gap-6">
             <h1 class="text-2xl font-medium">Clock</h1>
             <time id="clock" class="text-6xl font-semibold tabular-nums tracking-tight" aria-live="polite"></time>
-            <a href="/" class="text-sm text-[#706f6c] dark:text-[#A1A09A] underline underline-offset-4 hover:text-[#1b1b18] dark:hover:text-[#EDEDEC]">Back to home</a>
         </main>
 
         <script>
