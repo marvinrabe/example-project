@@ -7,5 +7,5 @@ Route::get('/', function () {
 });
 
 Route::get('/clock', function () {
-    return view('clock');
-});
+    return view('clock')
+})
