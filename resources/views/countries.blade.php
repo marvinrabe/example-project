@@ -13,8 +13,9 @@
         <!-- Styles / Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] dark:text-[#EDEDEC] flex items-center justify-center min-h-screen flex-col p-6">
-        <main class="flex flex-col items-center gap-6 w-full max-w-md">
+    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] dark:text-[#EDEDEC] min-h-screen flex flex-col p-6">
+        @include('partials.nav')
+        <main class="flex-1 flex flex-col items-center justify-center gap-6 w-full max-w-md mx-auto">
             <h1 class="text-2xl font-medium">EU Countries</h1>
             <ul id="countries-list" class="w-full flex flex-col gap-2">
                 @foreach ($countries as $country)
@@ -29,7 +30,6 @@
                     </li>
                 @endforeach
             </ul>
-            <a href="/" class="text-sm text-[#706f6c] dark:text-[#A1A09A] underline underline-offset-4 hover:text-[#1b1b18] dark:hover:text-[#EDEDEC]">Back to home</a>
         </main>
     </body>
 </html>
