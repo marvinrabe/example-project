@@ -23,13 +23,11 @@ jobs:
       - name: Install PHP dependencies
         run: composer install --no-interaction --prefer-dist
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
 
       - name: Install Node dependencies and build assets
-        run: rm -f package-lock.json && npm install && npm run build
+        run: bun install && bun run build
 
       - name: Prepare environment
         run: |
