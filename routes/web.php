@@ -15,6 +15,10 @@ Route::get('/duck', function () {
     return view('duck');
 });
 
+Route::get('/empty', function () {
+    return view('empty');
+});
+
 Route::get('/countries', function () {
     return view('countries', ['countries' => Country::orderBy('name')->get()]);
 });
