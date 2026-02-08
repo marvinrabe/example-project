@@ -95,6 +95,85 @@
                 background-size: 300% 300%;
                 animation: gradient-shift 4s ease infinite;
             }
+
+            /* Hidden boat Easter egg */
+            @keyframes sail {
+                0%, 100% { transform: translateX(0) rotate(-1deg); }
+                50% { transform: translateX(3px) rotate(1deg); }
+            }
+            @keyframes wave {
+                0%, 100% { transform: scaleY(1); }
+                50% { transform: scaleY(1.3); }
+            }
+            @keyframes boat-found-pop {
+                0% { transform: scale(1); }
+                30% { transform: scale(3) rotate(-10deg); }
+                50% { transform: scale(2.5) rotate(5deg); }
+                70% { transform: scale(2.8) rotate(-3deg); }
+                100% { transform: scale(3) rotate(0deg); }
+            }
+            @keyframes celebration-fade {
+                0% { opacity: 0; transform: translateY(10px); }
+                20% { opacity: 1; transform: translateY(0); }
+                80% { opacity: 1; }
+                100% { opacity: 0; transform: translateY(-10px); }
+            }
+            @keyframes firework {
+                0% { transform: scale(0); opacity: 1; }
+                50% { transform: scale(1.2); opacity: 0.8; }
+                100% { transform: scale(0); opacity: 0; }
+            }
+            .hidden-boat {
+                position: fixed;
+                font-size: 8px;
+                cursor: default;
+                opacity: 0.15;
+                z-index: 10;
+                animation: sail 4s ease-in-out infinite;
+                transition: opacity 0.3s;
+                user-select: none;
+                line-height: 1;
+            }
+            .hidden-boat:hover {
+                opacity: 0.4;
+            }
+            .hidden-boat.found {
+                opacity: 1 !important;
+                animation: boat-found-pop 0.8s ease-out forwards;
+                cursor: default;
+                font-size: 8px;
+                z-index: 1000;
+            }
+            .boat-celebration {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 999;
+                text-align: center;
+                pointer-events: none;
+                animation: celebration-fade 4s ease-in-out forwards;
+            }
+            .boat-celebration h2 {
+                font-size: 2rem;
+                font-weight: 800;
+                background: linear-gradient(135deg, #f53003, #03b5f5, #f59e03);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                margin-bottom: 0.5rem;
+            }
+            .boat-celebration p {
+                font-size: 1.1rem;
+                color: #706f6c;
+            }
+            .firework-burst {
+                position: fixed;
+                font-size: 1.5rem;
+                pointer-events: none;
+                z-index: 998;
+                animation: firework 1s ease-out forwards;
+            }
         </style>
     </head>
     <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] dark:text-[#EDEDEC] min-h-screen flex flex-col font-[Instrument_Sans]">
@@ -205,5 +284,62 @@
                 </p>
             </div>
         </main>
+
+        <!-- Hidden Boat Easter Egg - Can you find it? -->
+        <div id="hidden-boat" class="hidden-boat" title="🤔">⛵</div>
+
+        <script>
+            (function() {
+                const boat = document.getElementById('hidden-boat');
+                let found = false;
+
+                // Place the boat in a sneaky spot
+                function positionBoat() {
+                    const positions = [
+                        { bottom: '12px', right: '18px' },
+                        { bottom: '8px', left: '14px' },
+                        { top: '10px', left: '50%' },
+                        { top: '45%', right: '8px' },
+                        { bottom: '35%', left: '6px' },
+                    ];
+                    const pos = positions[Math.floor(Math.random() * positions.length)];
+                    Object.assign(boat.style, { top: '', bottom: '', left: '', right: '' });
+                    Object.assign(boat.style, pos);
+                }
+
+                positionBoat();
+
+                boat.addEventListener('click', function() {
+                    if (found) return;
+                    found = true;
+                    boat.classList.add('found');
+
+                    // Launch firework emojis
+                    const emojis = ['🎆', '🎇', '✨', '🌟', '🎊', '🎉', '⭐', '🚢', '🐟', '🐠', '🐬', '🌊'];
+                    for (let i = 0; i < 16; i++) {
+                        setTimeout(() => {
+                            const fw = document.createElement('div');
+                            fw.className = 'firework-burst';
+                            fw.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                            fw.style.left = (15 + Math.random() * 70) + '%';
+                            fw.style.top = (15 + Math.random() * 70) + '%';
+                            fw.style.animationDuration = (0.6 + Math.random() * 0.8) + 's';
+                            fw.style.animationDelay = (Math.random() * 0.3) + 's';
+                            document.body.appendChild(fw);
+                            setTimeout(() => fw.remove(), 2000);
+                        }, i * 100);
+                    }
+
+                    // Show celebration message
+                    setTimeout(() => {
+                        const msg = document.createElement('div');
+                        msg.className = 'boat-celebration';
+                        msg.innerHTML = '<h2>You found the boat!</h2><p>Captain, welcome aboard! 🚢</p>';
+                        document.body.appendChild(msg);
+                        setTimeout(() => msg.remove(), 4500);
+                    }, 400);
+                });
+            })();
+        </script>
     </body>
 </html>
